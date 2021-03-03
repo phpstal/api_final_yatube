@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Post, Comment
+from .models import Post, Group, Comment
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -10,6 +10,13 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
+        fields = '__all__'
+
+
+class GroupSerializer(serializers.ModelSerializer):   
+
+    class Meta:
+        model = Group
         fields = '__all__'
 
 
