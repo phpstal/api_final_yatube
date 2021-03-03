@@ -10,15 +10,6 @@ class Group(models.Model):
         max_length=200,
         help_text='Напишите название группы'
     )
-    slug = models.SlugField(
-        verbose_name='Слаг',         
-        help_text=('Укажите адрес для страницы задачи. Используйте только '
-                   'латиницу, цифры, дефисы и знаки подчёркивания')
-    )
-    description = models.TextField(
-        verbose_name='Описание группы',
-        help_text='Напишите описание группы'
-    )
 
     def __str__(self):
         return self.title

@@ -16,7 +16,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'api',            
+    'api',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -92,27 +93,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
-    #'DEFAULT_PAGINATION_CLASS': 
-    #    'rest_framework.pagination.PageNumberPagination',
-    #    'PAGE_SIZE': 100,    
-    #'DEFAULT_FILTER_BACKENDS': [
-    #    'django_filters.rest_framework.DjangoFilterBackend'
-    #],
-    #'DEFAULT_PERMISSION_CLASSES': [
-    #    'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    #    'rest_framework.permissions.IsAuthenticated', 
-    #],
-    #'DEFAULT_AUTHENTICATION_CLASSES': [
-        #'rest_framework.authentication.TokenAuthentication',
-    #],
-    #'DEFAULT_THROTTLE_CLASSES': [
-        # 'rest_framework.throttling.UserRateThrottle',
-        # 'rest_framework.throttling.AnonRateThrottle',
-        # 'rest_framework.throttling.ScopedRateThrottle'
-    #],
-    #'DEFAULT_THROTTLE_RATES': {
-        #'user': '10000/day', #  лимит для UserRateThrottle
-        #'anon': '1000/day',  #  лимит для AnonRateThrottle
-        #'low_request': '3/minute',
-    #}
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ]
+    
 }

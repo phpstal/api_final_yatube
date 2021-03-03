@@ -9,11 +9,6 @@ from .views import PostViewSet, GroupViewSet
 router_v1 = DefaultRouter()
 router_v1.register('posts', PostViewSet)
 router_v1.register('group', GroupViewSet)
-router_v1.register(
-    r'^posts?group=\d+$',
-    PostViewSet,
-    #basename='posts'
-)
 API_V = 'v1/'
 
 urlpatterns = [

@@ -1,3 +1,4 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -13,7 +14,8 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = PERMISSION_CLASSES
-    #pagination_class = PageNumberPagination
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['group',]    
 
     def perform_create(self, serializer, *args, **kwargs):
         serializer.save(author=self.request.user)
@@ -22,8 +24,11 @@ class PostViewSet(viewsets.ModelViewSet):
 class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-    permission_classes = PERMISSION_CLASSES       
+    permission_classes = PERMISSION_CLASSES    
 
+    def perform_create(self, serializer):
+        serializer.save()
+        
 
 class CommentViewSet(viewsets.ModelViewSet):
     permission_classes = PERMISSION_CLASSES
