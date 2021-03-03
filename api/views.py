@@ -3,9 +3,10 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.pagination import PageNumberPagination
-from .models import Post, Group
+from .models import Post, Group, Follow, Comment
 from .permissions import IsAuthorOrReadOnly
-from .serializers import PostSerializer, GroupSerializer, CommentSerializer
+from .serializers import (PostSerializer, GroupSerializer, 
+                          FollowSerializer, CommentSerializer)
 
 PERMISSION_CLASSES = [IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly]
 
@@ -15,7 +16,7 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
     permission_classes = PERMISSION_CLASSES
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['group',]    
+    filterset_fields = ['group',]
 
     def perform_create(self, serializer, *args, **kwargs):
         serializer.save(author=self.request.user)
@@ -24,11 +25,15 @@ class PostViewSet(viewsets.ModelViewSet):
 class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-    permission_classes = PERMISSION_CLASSES    
+    permission_classes = PERMISSION_CLASSES
 
-    def perform_create(self, serializer):
-        serializer.save()
-        
+
+class FollowViewSet(viewsets.ModelViewSet):
+    queryset = Follow.objects.all()
+    serializer_class = FollowSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['following',]
+
 
 class CommentViewSet(viewsets.ModelViewSet):
     permission_classes = PERMISSION_CLASSES
