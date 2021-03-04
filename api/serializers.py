@@ -13,15 +13,16 @@ class PostSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class GroupSerializer(serializers.ModelSerializer):   
+class GroupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Group
         fields = '__all__'
 
 
-class FollowSerializer(serializers.ModelSerializer):   
-
+class FollowSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.username')
+    following = serializers.ReadOnlyField(source='following.username')
     class Meta:
         model = Follow
         fields = '__all__'

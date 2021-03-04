@@ -9,7 +9,7 @@ from .views import PostViewSet, GroupViewSet, FollowViewSet, CommentViewSet
 router_v1 = DefaultRouter()
 router_v1.register('posts', PostViewSet)
 router_v1.register('group', GroupViewSet)
-router_v1.register('follow', FollowViewSet)
+router_v1.register('follow', FollowViewSet, basename='follow')
 API_V = 'v1/'
 
 urlpatterns = [

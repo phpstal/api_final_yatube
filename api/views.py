@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.pagination import PageNumberPagination
-from .models import Post, Group, Follow, Comment
+from .models import Post, Group, Follow, Comment, User
 from .permissions import IsAuthorOrReadOnly
 from .serializers import (PostSerializer, GroupSerializer, 
                           FollowSerializer, CommentSerializer)
@@ -29,10 +29,11 @@ class GroupViewSet(viewsets.ModelViewSet):
 
 
 class FollowViewSet(viewsets.ModelViewSet):
-    queryset = Follow.objects.all()
     serializer_class = FollowSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['following',]
+    
+    def get_queryset(self):
+        following = get_object_or_404(User, username=self.request.user)
+        return Follow.objects.filter(following=following)
 
 
 class CommentViewSet(viewsets.ModelViewSet):
