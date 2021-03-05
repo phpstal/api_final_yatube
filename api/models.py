@@ -6,7 +6,7 @@ User = get_user_model()
 
 class Group(models.Model):
     title = models.CharField(
-        verbose_name='Заголовок', 
+        verbose_name='Заголовок',
         max_length=200,
         help_text='Напишите название группы'
     )
@@ -16,12 +16,12 @@ class Group(models.Model):
 
 
 class Post(models.Model):
-    text = models.TextField(  
-        verbose_name='Текст сообщения', 
+    text = models.TextField(
+        verbose_name='Текст сообщения',
         help_text='Напишите ваш пост в это окно'
     )
     pub_date = models.DateTimeField(
-        verbose_name='Дата публикации', 
+        verbose_name='Дата публикации',
         auto_now_add=True,
         help_text='Укажите дату написания поста'
     )
@@ -29,7 +29,7 @@ class Post(models.Model):
                                related_name='posts')
     group = models.ForeignKey(
         Group, on_delete=models.SET_NULL,
-        blank=True, null=True,         
+        blank=True, null=True,
         related_name='posts'
     )
 

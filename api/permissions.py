@@ -8,6 +8,7 @@ class IsAuthorOrReadOnly(permissions.BasePermission):
             or obj.author == request.user
         )
 
+
 class IsSuperuserPermission(permissions.BasePermission):
     def has_permission(self, request, view):
         return request.user.is_superuser

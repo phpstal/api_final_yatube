@@ -2,10 +2,9 @@ from django_filters.rest_framework import DjangoFilterBackend
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, filters
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from rest_framework.pagination import PageNumberPagination
-from .models import Post, Group, Follow, Comment, User
+from .models import Post, Group, Follow, User
 from .permissions import IsAuthorOrReadOnly
-from .serializers import (PostSerializer, GroupSerializer, 
+from .serializers import (PostSerializer, GroupSerializer,
                           FollowSerializer, CommentSerializer)
 
 PERMISSION_CLASSES = [IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly]
@@ -16,7 +15,7 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
     permission_classes = PERMISSION_CLASSES
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['group',]
+    filterset_fields = ['group']
 
     def perform_create(self, serializer, *args, **kwargs):
         serializer.save(author=self.request.user)
@@ -31,9 +30,9 @@ class GroupViewSet(viewsets.ModelViewSet):
 class FollowViewSet(viewsets.ModelViewSet):
     serializer_class = FollowSerializer
     filter_backends = [filters.SearchFilter]
-    search_fields = ['user__username',] 
+    search_fields = ['user__username'] 
 
-    def get_queryset(self):    
+    def get_queryset(self):
         user = get_object_or_404(User, username=self.request.user)
         return Follow.objects.filter(following=user)
 
