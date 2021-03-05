@@ -10,6 +10,11 @@ router_v1 = DefaultRouter()
 router_v1.register('posts', PostViewSet)
 router_v1.register('group', GroupViewSet)
 router_v1.register('follow', FollowViewSet, basename='follow')
+router_v1.register(
+    r'posts/(?P<post_id>\d+)/comments',
+    CommentViewSet,
+    basename='comments'
+)
 API_V = 'v1/'
 
 urlpatterns = [
