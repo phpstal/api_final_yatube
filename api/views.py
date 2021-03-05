@@ -30,7 +30,7 @@ class GroupViewSet(viewsets.ModelViewSet):
 class FollowViewSet(viewsets.ModelViewSet):
     serializer_class = FollowSerializer
     filter_backends = [filters.SearchFilter]
-    search_fields = ['user__username'] 
+    search_fields = ['user__username']
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.request.user)
