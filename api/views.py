@@ -37,6 +37,9 @@ class FollowViewSet(viewsets.ModelViewSet):
         user = get_object_or_404(User, username=self.request.user)
         return Follow.objects.filter(following=user)
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
 
 class CommentViewSet(viewsets.ModelViewSet):
     permission_classes = PERMISSION_CLASSES
