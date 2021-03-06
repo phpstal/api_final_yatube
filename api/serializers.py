@@ -29,7 +29,7 @@ class FollowSerializer(serializers.ModelSerializer):
     following = serializers.SlugRelatedField(
         slug_field='username',
         queryset=User.objects.all())
-    
+
     validators = [UniqueTogetherValidator(
         queryset=Follow.objects.all(),
         fields=['user', 'following'])]
