@@ -7,6 +7,7 @@ from .permissions import IsAuthorOrReadOnly
 from .serializers import (PostSerializer, GroupSerializer,
                           FollowSerializer, CommentSerializer)
 
+
 PERMISSION_CLASSES = [IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly]
 
 
